@@ -1,5 +1,6 @@
 import argparse
 import pickle
+import matplotlib.pyplot as plt
 
 
 def get_args():
@@ -23,3 +24,18 @@ def load_binary(path):
     with open(path, 'rb') as f:
         data = pickle.load(f)
     return data
+
+
+def plot_graphs(history, metric):
+    plt.plot(history.history[metric])
+    plt.plot(history.history['val_' + metric], '')
+    plt.xlabel("Epochs")
+    plt.ylabel(metric)
+    plt.legend([metric, 'val_' + metric])
+    plt.show()
+
+
+def pad_to_size(vec, size):
+    zeros = [0] * (size - len(vec))
+    vec.extend(zeros)
+    return vec

@@ -1,0 +1,27 @@
+{
+  "exp": {
+    "name": "text_rnn"
+  },
+  "model": {
+    "embedding_dim": 64,
+    "rnn_units": 64,
+    "hidden_dim_1": 64,
+    "hidden_dim_2": 1,
+    "learning_rate": 1e-4
+  },
+  "trainer": {
+    "num_epochs": 10,
+    "batch_size": 64,
+    "validation_steps": 30
+  },
+  "callbacks": {
+    "checkpoint_save_weights_only": true,
+    "tensorboard_write_graph": true
+  },
+  "data_loader": {
+    "dataset": "imdb_reviews/subwords8k",
+    "data_dir": "data/text_rnn",
+    "encoder": "encoder.pkl",
+    "buffer_size": 10000
+  }
+}

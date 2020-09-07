@@ -3,11 +3,14 @@ import os
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard
 
 
-class CharRnnModelTrainer(BaseTrain):
+class TextRnnModelTrainer(BaseTrain):
     def __init__(self, model, data, config):
-        super(CharRnnModelTrainer, self).__init__(model, data, config)
+        super(TextRnnModelTrainer, self).__init__(model, data, config)
         self.callbacks = []
         self.loss = []
+        self.acc = []
+        self.val_loss = []
+        self.val_acc = []
         self.init_callbacks()
 
     def init_callbacks(self):
@@ -27,8 +30,13 @@ class CharRnnModelTrainer(BaseTrain):
 
     def train(self):
         history = self.model.fit(
-            self.data,
+            self.data[0],
             epochs=self.config.trainer.num_epochs,
+            validation_data=self.data[1],
+            validation_steps=self.config.trainer.validation_steps,
             callbacks=self.callbacks
         )
         self.loss.extend(history.history['loss'])
+        self.acc.extend(history.history['accuracy'])
+        self.val_loss.extend(history.history['val_loss'])
+        self.val_acc.extend(history.history['val_accuracy'])

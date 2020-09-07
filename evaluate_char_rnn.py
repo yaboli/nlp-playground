@@ -16,7 +16,7 @@ def main():
 
     print('Create the model.')
     model = CharRnnModel(config, mode='infer')
-    model.load(tf.train.latest_checkpoint(config.callbacks.checkpoint_dir))
+    model.load(tf.train.latest_checkpoint('experiments/2020-09-06/char_rnn/checkpoints'))
 
     print("\n" + "*" * 20 + " Generated Text " + "*" * 20)
     start_string = u"ROMEO: "
